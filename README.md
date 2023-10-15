@@ -108,6 +108,9 @@ ip6tables-save > /etc/iptables/rules.v6
 
 iptables配置文件/etc/sysconfig/iptables，修改重启服务生效service iptables restart   
 
+### 流媒体检查 
+bash <(curl -L -s https://raw.githubusercontent.com/lmc999/RegionRestrictionCheck/main/check.sh)
+
 资料  
 https://github.com/myxuchangbin/dnsmasq_sniproxy_install  
 https://raw.githubusercontent.com/myxuchangbin/dnsmasq_sniproxy_install/master/sniproxy.conf
