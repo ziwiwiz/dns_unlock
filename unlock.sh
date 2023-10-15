@@ -285,6 +285,7 @@ address=/nflxsearch.net/$2
 address=/hotstar.com/$2
 address=/api.hotstar.com/$2
 EOF
+fi
 
     systemctl restart dnsmasq
     echo -e "${green} dnsmasq启动成功"
