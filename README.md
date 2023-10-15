@@ -36,8 +36,8 @@ ipv6_first：query for both IPv4 and IPv6, use IPv6 is present
 如果不想解锁某个域名，在下面的dnsmasq分流文件改就可以  
 
 # 二、不能解锁的机器：安装dnsmasq
-wget --no-check-certificate -O unlock.sh https://raw.githubusercontent.com/bingotl/dns_unlock/main/unlock.sh && chmod +x unlock.sh  
-./unlock.sh ip
+wget --no-check-certificate -O unlock.sh https://raw.githubusercontent.com/ziwiwiz/dns_unlock/main/unlock.sh && chmod +x unlock.sh  
+./unlock.sh ipv4 ipv6
 
 2个脚本都安装完后，需要重启你的ss/v2/trojan等代理服务才会生效  
 ping netflix.com  显示的是你的解锁机ip  
@@ -89,11 +89,22 @@ cat /etc/resolv.conf
 入站规则：禁止外部所有ip访问本机80/443端口（执行一次就行）  
 iptables -I INPUT -p tcp --dport 443 -j DROP  
 iptables -I INPUT -p tcp --dport 80 -j DROP
+iptables -I INPUT -p tcp --dport 53 -j DROP
+ip6tables -A INPUT -p tcp --dport 443 -j DROP
+ip6tables -A INPUT -p tcp --dport 80 -j DROP
+ip6tables -A INPUT -p tcp --dport 53 -j DROP
 
 入站规则：放行某个ip访问80/443端口（按需添加）  
 iptables -I INPUT -s ip -p tcp --dport 443 -j ACCEPT  
 iptables -I INPUT -s ip -p tcp --dport 80 -j ACCEPT  
+iptables -I INPUT -s ip -p tcp --dport 53 -j ACCEPT  
+ip6tables -A INPUT -p tcp -s ipv6 --dport 53 -j ACCEPT
+ip6tables -A INPUT -p tcp -s ipv6 --dport 443 -j ACCEPT
+ip6tables -A INPUT -p tcp -s ipv6 --dport 80 -j ACCEPT
+
 service iptables save
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
 
 iptables配置文件/etc/sysconfig/iptables，修改重启服务生效service iptables restart   
 

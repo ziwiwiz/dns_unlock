@@ -156,12 +156,17 @@ address=/dmm-extension.com/$1
 address=/dmmapis.com/$1
 address=/api-p.videomarket.jp/$1
 address=/saima.zlzd.xyz/$1
-address=/fast.com/$2
-address=/netflix.ca/$2
-address=/netflixinvestor.com/$2
-address=/netflixtechblog.com/$2
-address=/nflxsearch.net/$2
-address=/hotstar.com/$2
+address=/fast.com/$1
+address=/netflix.ca/$1
+address=/netflixinvestor.com/$1
+address=/netflixtechblog.com/$1
+address=/nflxsearch.net/$1
+address=/hotstar.com/$1
+address=/api.hotstar.com/$1
+EOF
+
+if [ -n "$2" ]; then
+    cat >> /etc/dnsmasq.d/unlock.conf <<EOF
 address=/akadns.net/$2
 address=/akam.net/$2
 address=/akamai.com/$2
@@ -278,6 +283,7 @@ address=/netflixinvestor.com/$2
 address=/netflixtechblog.com/$2
 address=/nflxsearch.net/$2
 address=/hotstar.com/$2
+address=/api.hotstar.com/$2
 EOF
 
     systemctl restart dnsmasq
